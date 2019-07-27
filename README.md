@@ -6,4 +6,4 @@
 
 #No.1 dan 7 buka dengan web browser
 #No.6 import database db_biodata di phpmyadmin
-#No.3 bisa dijalankan lewat http://cpp.sh/
+#No.3 & 5 bisa dijalankan lewat http://cpp.sh/
