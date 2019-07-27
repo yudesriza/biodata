@@ -1,0 +1,77 @@
+
+1. Create database
+	CREATE DATABASE db_biodata;
+
+	USE db_biodata;
+
+2. create tabel cities
+
+	CREATE TABLE cities(
+    		id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    		name varchar(100)
+    	);
+
+3. create tabel users
+
+	CREATE TABLE users(
+  		id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  		full_name varchar(100),
+    		date_of_birth date,
+    		place_of_birth_id int,
+    		phone_number varchar(20),
+    		address text,
+    		last_education ENUM('S1','D4','D3','D2','D1','SMA/SMK'),
+    		religion ENUM('Islam','Kristen','Katolik'),
+    		FOREIGN KEY(place_of_birth_id) REFERENCES cities(id)
+    	);
+
+4. create tabel hobbies
+	CREATE TABLE hobbies(
+    		id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    		name varchar(50)
+    	);
+
+5.create tabel users_hobbies
+	CREATE TABLE users_hobbies(
+    		id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    		biodata_id int,
+    		hobby_id int,
+    		FOREIGN KEY(biodata_id) REFERENCES users(id),
+    		FOREIGN KEY(hobby_id) REFERENCES hobbies(id)
+    	);
+
+
+6. insert data cities
+	INSERT INTO cities(name) VALUES ('Jakarta');
+	INSERT INTO cities(name) VALUES ('Bandung');
+	INSERT INTO cities(name) VALUES ('Padang');
+
+7. insert data hobbies
+	INSERT INTO hobbies(name) VALUES ('Renang');
+	INSERT INTO hobbies(name) VALUES ('Mancing');
+	INSERT INTO hobbies(name) VALUES ('Game');
+    	INSERT INTO hobbies(name) VALUES ('Gibah');
+    	INSERT INTO hobbies(name) VALUES ('Programming');
+
+5. insert data users
+
+INSERT INTO users (full_name, date_of_birth, place_of_birth_id, phone_number, address, last_education, religion) VALUES ('Lucinta Luna', '1992-07-12', '1', '081111', 'Jaksel', 'S1', 'Kristen');
+
+INSERT INTO users (full_name, date_of_birth, place_of_birth_id, phone_number, address, last_education, religion) VALUES ('Satrio', '2001-07-21', '1', '082222', 'JakBar', 'SMA/SMK', 'Islam');
+
+INSERT INTO users (full_name, date_of_birth, place_of_birth_id, phone_number, address, last_education, religion) VALUES ('Syahrini', '1989-01-01', '2', '083333', 'Bandung', 'S1', 'Islam');
+
+
+6. insert data users_hobbies
+
+INSERT INTO users_hobbies (biodata_id, hobby_id) VALUES ('1', '1');
+INSERT INTO users_hobbies (biodata_id, hobby_id) VALUES ('1', '3');
+INSERT INTO users_hobbies (biodata_id, hobby_id) VALUES ('2', '4');
+INSERT INTO users_hobbies (biodata_id, hobby_id) VALUES ('2', '5');
+
+
+
+6. menampilkan list biodata
+
+SELECT users.id, users.full_name, users.place_of_birth_id, cities.name AS place_of_birth, users.date_of_birth, users.phone_number, users.last_education, users.religion, hobbies.name  AS hobby FROM users INNER JOIN cities ON users.place_of_birth_id=cities.id INNER JOIN users_hobbies ON users_hobbies.biodata_id=users.id INNER JOIN hobbies ON users_hobbies.hobby_id=hobbies.id;
+
